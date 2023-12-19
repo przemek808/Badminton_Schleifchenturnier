@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Badminton Schleifchenturnier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Badminton Schleifchenturnier - Spielerregistrierung</h1>
+    
+    <!-- Manuelle Spielerregistrierung -->
+    <input type="text" id="playerName" placeholder="Spielername">
+    <input type="number" id="playerStrength" placeholder="Stärke (1-100)" min="1" max="100">
+    <button type="button" id="addPlayer">Spieler manuell hinzufügen</button>
+
+    <!-- CSV-Datei-Upload -->
+    <input type="file" id="csvFile" accept=".csv">
+    <button type="button" id="uploadCsv">CSV hochladen</button>
+
+    <h2>Registrierte Spieler:</h2>
+    <ul id="playerList"></ul>
+    <button type="button" id="generatePairs">Paarungen generieren</button>
+    <h2>Paarungen:</h2>
+    <div id="pairs"></div>
+
+    <h2>Erste Runde:</h2>
+<div id="firstRound"></div>
+
+<button type="button" id="editFirstRound">Erste Runde bearbeiten</button>
+<button type="button" id="addRound">Neue Runde starten</button>
+
+<h2>Zweite Runde:</h2>
+<div id="secondRound"></div>
+
+<script type="module" src="main.js"></script>
+
+</body>
+</html>

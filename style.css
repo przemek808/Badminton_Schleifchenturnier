@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+#playerForm {
+    margin-bottom: 20px;
+}
+
+#playerList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#playerList li {
+    background-color: #e4e4e4;
+    padding: 5px;
+    margin-bottom: 5px;
+}
