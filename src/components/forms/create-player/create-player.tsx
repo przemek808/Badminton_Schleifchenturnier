@@ -1,7 +1,7 @@
 'use client'
 
-import { data } from '@data/data'
 import { FormEvent, useState } from 'react'
+import { createPlayer } from './create'
 
 export function CreatePlayer() {
     const [name, setName] = useState('')
@@ -11,7 +11,7 @@ export function CreatePlayer() {
         console.log({ name, rating })
         event.preventDefault()
 
-        data.player.create({ name, rating: parseInt(rating) })
+        createPlayer({ name, rating: parseInt(rating) })
     }
 
     return (

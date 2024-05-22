@@ -1,4 +1,4 @@
-import { Player } from 'src/data/player/player'
+import { Player } from 'src/storage/player/player'
 
 type PlayerCardProps = {
     player: Player
