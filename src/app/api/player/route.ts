@@ -1,4 +1,4 @@
-import { storage } from 'src/storage/storage'
+import { storage } from 'src/storage'
 
 export async function GET() {
     const allPlayers = await storage.player.getAll()

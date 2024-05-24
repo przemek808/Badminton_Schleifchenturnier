@@ -1,4 +1,4 @@
-import { storage } from 'src/storage/data'
+import { storage } from 'src/storage'
 
 export async function GET() {
     console.log('test')
