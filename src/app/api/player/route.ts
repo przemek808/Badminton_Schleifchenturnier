@@ -7,20 +7,25 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    console.log(request.body)
-
-    if (request.body === null) {
-        console.error('No request body')
-        return Response.error()
-    }
-
-    const player = await request.json()
-
     try {
-        storage.player.create(player)
+        const players = await request.json()
+
+        if (Array.isArray(players)) {
+            const result = await Promise.allSettled([
+                players.map((player) => {
+                    return storage.player.create(player)
+                }),
+            ])
+
+            const errors = result.filter((value) => {
+                value.status === 'rejected'
+            })
+        } else {
+            storage.player.create(players)
+        }
     } catch (error) {
         return Response.error()
     }
 
-    return Response.json(player)
+    return new Response()
 }

@@ -8,12 +8,7 @@ export type PlayerEntity = {
     update(name: string, changeSet: Partial<Player>): Promise<Player>
 }
 
-const data: Record<string, Player> = {
-    icke: {
-        name: 'icke',
-        rating: 5,
-    },
-}
+const data: Record<string, Player> = {}
 
 function isPlayerExisting(name: string): boolean {
     return Object.keys(data).includes(name)

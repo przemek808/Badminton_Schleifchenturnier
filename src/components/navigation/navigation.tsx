@@ -1,13 +1,10 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { usePathname } from 'next/navigation'
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap'
 import Link from 'next/link'
 
 export function Navigation(): ReactNode {
-    const pathname = usePathname()
-
     return (
         <Navbar expand="md" className="bg-body-tertiary mb-3">
             <Container fluid>
@@ -35,9 +32,6 @@ export function Navigation(): ReactNode {
                             </Nav.Link>
                             <Nav.Link href="/match" as={Link}>
                                 Matches
-                            </Nav.Link>
-                            <Nav.Link href="/importer" as={Link}>
-                                Importer
                             </Nav.Link>
                         </Nav>
                     </Offcanvas.Body>

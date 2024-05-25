@@ -1,6 +1,6 @@
 import { Player } from '@data/player/player'
 
-export async function createPlayer(data: Player): Promise<any[]> {
+export async function createPlayer(data: Player | Player[]): Promise<void> {
     const res = await fetch('http://localhost:3000/api/player', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -13,5 +13,5 @@ export async function createPlayer(data: Player): Promise<any[]> {
         throw new Error('Failed to fetch data')
     }
 
-    return res.json()
+    return
 }

@@ -1,3 +1,11 @@
+import {
+    Card,
+    CardBody,
+    CardLink,
+    CardSubtitle,
+    CardText,
+    CardTitle,
+} from 'react-bootstrap'
 import { Player } from 'src/storage/player/player'
 
 type PlayerCardProps = {
@@ -10,12 +18,16 @@ export function PlayerCard(props: PlayerCardProps) {
     } = props
 
     return (
-        <div>
-            <div>{name}</div>
-            <div>
-                <span>Rating</span>
-                <span>{rating}</span>
-            </div>
-        </div>
+        <Card>
+            <CardBody>
+                <CardTitle>{name}</CardTitle>
+                <CardSubtitle className="mb-2 text-muted">
+                    {rating}
+                </CardSubtitle>
+                <CardText>Played Matches</CardText>
+                <CardLink>Bearbeiten</CardLink>
+                <CardLink>Loeschen</CardLink>
+            </CardBody>
+        </Card>
     )
 }
