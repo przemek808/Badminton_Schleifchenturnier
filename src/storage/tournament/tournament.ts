@@ -12,15 +12,10 @@ export type Match = {
         team2: Player[]
     }
     results: Result[]
-}
-
-export type Round = {
-    id: string
-    matches: Match[]
-    active: boolean
+    round: number
 }
 
 export type Tournament = {
-    rounds: Round[]
-    activeRound: Round | null
+    activeRound: number | null
+    matches: Match[]
 }
