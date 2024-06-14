@@ -1,15 +1,12 @@
 import { Tournament, Match } from './tournament'
 
 export type TournamentEntity = {
-    round: {
-        next(): void
-        getMatches(round: number): Match[]
-    }
     match: {
-        create(match: Omit<Match, 'id' | 'round'>): void
+        create(match: Omit<Match, 'id' | 'round' | 'results'>): void
         update(matchId: string, changes: Partial<Omit<Match, 'id'>>): Match
     }
-    getMatches(): Match[]
+    nextRound(): number
+    getAllMatches(): Match[]
 }
 
 const data: Tournament = {
@@ -27,6 +24,7 @@ export const tournamentEntity: TournamentEntity = {
             data.matches.push({
                 id: crypto.randomUUID(),
                 round: data.activeRound,
+                results: [],
                 ...match,
             })
         },
@@ -49,28 +47,16 @@ export const tournamentEntity: TournamentEntity = {
             }
         },
     },
-    round: {
-        next() {
-            if (data.activeRound === null) {
-                data.activeRound = 1
-                return
-            }
-
+    nextRound() {
+        if (data.activeRound === null) {
+            data.activeRound = 1
+        } else {
             data.activeRound += 1
-        },
-        getMatches(round) {
-            const foundMatches = data.matches.filter(
-                (match) => match.round === round,
-            )
+        }
 
-            if (foundMatches.length === 0) {
-                throw new Error(`No matches found for given round: "${round}"`)
-            }
-
-            return foundMatches
-        },
+        return data.activeRound
     },
-    getMatches() {
+    getAllMatches() {
         return data.matches
     },
 }
