@@ -4,7 +4,7 @@ import { PlayerCard } from '@components/player-card/player-card'
 import { Col, Container, Row } from 'react-bootstrap'
 
 async function getData(): Promise<any[]> {
-    const res = await fetch('http://localhost:3000/api/player', {
+    const res = await fetch('http://localhost:3000/api/players', {
         headers: {
             'Content-Type': 'application/json',
         },

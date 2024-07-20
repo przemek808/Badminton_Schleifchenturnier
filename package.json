@@ -3,16 +3,22 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "next:dev": "next dev",
         "build": "next build",
         "start": "next start",
         "test:lint": "next lint",
         "test:unit": "",
         "test:watch": "",
-        "test": "npm run test:lint && npm run test:unit"
+        "test": "npm run test:lint && npm run test:unit",
+        "start:json-server": "json-server --config json-server/config.json json-server/db.json",
+        "dev": "concurrently --prefix-colors \"blue,green\" --names \"next,json-server\" \"npm run next:dev\" \"npm run start:json-server\"",
+        "resetDatabase": "node src/scripts/reset-database.js",
+        "postinstall": "npm run resetDatabase"
     },
     "dependencies": {
         "bootstrap": "5.3.3",
+        "concurrently": "^8.2.2",
+        "json-server": "^0.17.4",
         "next": "14.2.3",
         "react": "18.3.1",
         "react-bootstrap": "2.10.2",
