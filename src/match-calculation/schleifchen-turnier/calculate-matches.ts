@@ -7,7 +7,7 @@ export function calculateMatches(
 ): Omit<Match, 'id' | 'round' | 'results'>[] {
     const unassignedPlayers = players.toSorted((a, b) => a.rating - b.rating)
 
-    const matches: Omit<Match, 'id' | 'round' | 'results'>[] = []
+    const matches: Omit<Match, 'id' | 'round'>[] = []
 
     while (unassignedPlayers.length >= 3) {
         const player1 = unassignedPlayers.pop() as Player
@@ -20,6 +20,7 @@ export function calculateMatches(
                 team1: [player1, player4],
                 team2: [player2, player3],
             },
+            results: [],
         })
     }
 

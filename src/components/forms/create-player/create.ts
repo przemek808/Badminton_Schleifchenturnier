@@ -1,7 +1,7 @@
 import { Player } from '@data/player/player'
 
 export async function createPlayer(data: Player | Player[]): Promise<void> {
-    const res = await fetch('http://localhost:3000/api/player', {
+    const res = await fetch('http://localhost:3000/api/players', {
         method: 'POST',
         body: JSON.stringify(data),
     })

@@ -1,8 +1,9 @@
-import { Round } from 'src/storage/tournament/tournament'
-import styles from './match.module.css'
+import { MatchCard } from '@components/match-card/match-card'
+import { Match } from '@data/tournament/tournament'
+import { Col, Container, Row } from 'react-bootstrap'
 
 async function getData(): Promise<any[]> {
-    const res = await fetch('http://localhost:3000/api/round', {
+    const res = await fetch('http://localhost:3000/api/matches', {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -19,38 +20,24 @@ async function getData(): Promise<any[]> {
     return res.json()
 }
 
-export default async function Match() {
-    const rounds = await getData()
+export default async function MatchesPage() {
+    const matches = await getData()
 
-    return rounds.map((round: Round, index) => (
-        <div key={index + 1}>
-            <h1>{`${index + 1}. Runde`}</h1>
-            {round.active ? <span>(aktive Runde)</span> : null}
-            {round.matches.map((match) => (
-                <div key={round.id} className={styles.matches}>
-                    <span>
-                        <div>Team 1</div>
-                        <>
-                            {match.players.team1.map((player) => (
-                                <div key={player.name}>{player.name}</div>
-                            ))}
-                        </>
-                    </span>
-                    {match.results.map((result, index) => (
-                        <span
-                            key={index}
-                        >{`${result.team1} : ${result.team2}`}</span>
-                    ))}
-                    <span>
-                        <div>Team 2</div>
-                        <>
-                            {match.players.team2.map((player) => (
-                                <div key={player.name}>{player.name}</div>
-                            ))}
-                        </>
-                    </span>
-                </div>
-            ))}
-        </div>
-    ))
+    return (
+        <main>
+            {matches.length === 0 ? (
+                <div>Keine Matches gefunden!</div>
+            ) : (
+                <Container fluid className="px-3">
+                    <Row xs={1} lg={2} xxl={3} className="g-2">
+                        {matches.map((match) => (
+                            <Col xs key={match.name}>
+                                <MatchCard match={match} />
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+            )}
+        </main>
+    )
 }
