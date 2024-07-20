@@ -1,0 +1,5 @@
+.matches {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 16px;
+}
