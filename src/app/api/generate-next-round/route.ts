@@ -1,27 +1,31 @@
-import { calculateMatches } from 'src/match-calculation/schleifchen-turnier/calculate-matches'
-import { GET as getAllMatches, POST as postNewMatches } from '../matches/route'
-import { GET as getAllPlayers } from '../players/route'
-import { Match } from '@data/tournament/tournament'
+import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
+import { calculateMatches } from '../../../match-calculation/schleifchen-turnier/calculate-matches-chatgpt'
+
+const MAXIMUM_NUMBER_MATCHES = 10
 
 export async function GET() {
-    const allMatches: any[] = await (await getAllMatches()).json()
-    const allPlayers: any[] = await (await getAllPlayers()).json()
+    const allMatches: any[] = await (
+        await fetch('http://localhost:4000/matches', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    ).json()
+    const allPlayers: any[] = await (
+        await fetch('http://localhost:4000/players', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    ).json()
 
-    const lastRoundNumber = allMatches.reduce((prev, curr) => {
-        if (prev < curr.round) {
-            return curr.round
-        }
+    const currentRoundNumber = getCurrentRoundNumber(allMatches)
 
-        return prev
-    }, 0)
-
-    const newMatches = calculateMatches(allMatches, allPlayers)
-
-    const matchesToPush = newMatches.map(
-        (match): Omit<Match, 'id' | 'results'> => ({
-            ...match,
-            round: lastRoundNumber + 1,
-        }),
+    const newMatches = calculateMatches(
+        allPlayers,
+        allMatches,
+        currentRoundNumber + 1,
+        MAXIMUM_NUMBER_MATCHES,
     )
 
     await fetch('http://localhost:3000/api/matches', {
@@ -29,8 +33,8 @@ export async function GET() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(matchesToPush),
+        body: JSON.stringify(newMatches),
     })
 
-    return Response.json(newMatches)
+    return new Response()
 }

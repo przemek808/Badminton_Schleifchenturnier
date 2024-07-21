@@ -1,9 +1,14 @@
 import { MatchCard } from '@components/match-card/match-card'
 import { NextRound } from '@components/next-round/next-round'
+import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
+import { Match } from '@data/match/match'
 import { Col, Container, Row } from 'react-bootstrap'
 
-async function getData(): Promise<any[]> {
-    const res = await fetch('http://localhost:3000/api/matches', {
+async function getData(): Promise<{
+    matches: Match[]
+    currentRoundNumber: number
+}> {
+    const res = await fetch('http://localhost:4000/matches', {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -17,25 +22,39 @@ async function getData(): Promise<any[]> {
         throw new Error('Failed to fetch data')
     }
 
-    return res.json()
+    const matches: Match[] = await res.json()
+    const currentRoundNumber = getCurrentRoundNumber(matches)
+
+    const currentMatches = matches.filter(
+        (match) => match.round === currentRoundNumber,
+    )
+
+    return {
+        matches: currentMatches,
+        currentRoundNumber,
+    }
 }
 
 export default async function Home() {
-    const matches = await getData()
+    const { currentRoundNumber, matches } = await getData()
 
     return (
-        <main>
+        <main className="px-3">
             <h1>Badminton Schleifchenturnier</h1>
             <NextRound />
             <h2>Matches</h2>
+            <div>Aktive Runde: {currentRoundNumber}</div>
             {matches.length === 0 ? (
                 <div>Keine Matches gefunden!</div>
             ) : (
-                <Container fluid className="px-3">
+                <Container fluid className="px-0">
                     <Row xs={1} lg={2} xxl={3} className="g-2">
-                        {matches.map((match) => (
-                            <Col xs key={match.name}>
-                                <MatchCard match={match} />
+                        {matches.map((match, index) => (
+                            <Col xs key={match.id}>
+                                <MatchCard
+                                    match={match}
+                                    displayNumber={index + 1}
+                                />
                             </Col>
                         ))}
                     </Row>

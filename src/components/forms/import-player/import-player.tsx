@@ -44,7 +44,7 @@ export function ImportPlayer() {
 
             router.refresh()
         } catch (error) {
-            console.log(error)
+            console.error(error)
             setError(errorStates.parsingError)
         }
     }
