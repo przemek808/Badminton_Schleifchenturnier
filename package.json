@@ -13,7 +13,8 @@
         "start:json-server": "json-server --config json-server/config.json json-server/db.json",
         "dev": "concurrently --prefix-colors \"blue,green\" --names \"next,json-server\" \"npm run next:dev\" \"npm run start:json-server\"",
         "resetDatabase": "node src/scripts/reset-database.js",
-        "postinstall": "npm run resetDatabase"
+        "postinstall": "npm run resetDatabase",
+        "test:typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "bootstrap": "5.3.3",

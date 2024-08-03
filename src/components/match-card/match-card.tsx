@@ -1,6 +1,6 @@
 'use client'
 
-import { Match, Result, resultSchema } from '@data/tournament/tournament'
+import { Match, resultSchema } from '@data/match/match'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import {
@@ -19,7 +19,7 @@ import {
 import InputGroupText from 'react-bootstrap/esm/InputGroupText'
 import { TrashIcon } from 'src/icons/trash-icon'
 
-async function updateMatch(id: string, matchUpdate: Partial<Match>) {
+async function updateMatch(id: number, matchUpdate: Partial<Match>) {
     const res = await fetch(`http://localhost:3000/api/matches/${id}`, {
         method: 'PATCH',
         headers: {

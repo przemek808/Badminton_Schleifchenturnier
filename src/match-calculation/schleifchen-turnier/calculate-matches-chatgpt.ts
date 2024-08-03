@@ -233,16 +233,3 @@ function findNextPartner(
 
     return findNextPartner(previousPartners, players, index + 1)
 }
-
-function extractLastPlayerFromList(players: PlayerWithStats[]): Player {
-    const player = players.pop()
-
-    if (player === undefined) {
-        throw new Error('Could not get player due to empty list')
-    }
-
-    return {
-        name: player.name,
-        rating: player.rating,
-    }
-}

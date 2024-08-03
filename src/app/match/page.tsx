@@ -1,6 +1,6 @@
 import { MatchCard } from '@components/match-card/match-card'
 import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
-import { Match } from '@data/tournament/tournament'
+import { Match } from '@data/match/match'
 import { Fragment } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 
