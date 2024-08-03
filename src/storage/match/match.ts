@@ -13,14 +13,16 @@ export const resultSchema = z.object({
 
 export type Result = z.infer<typeof resultSchema>
 
+const teamSchema = playerSchema.array()
 export const matchSchema = z.object({
     id: z.number(),
     players: z.object({
-        team1: playerSchema.array(),
-        team2: playerSchema.array(),
+        team1: teamSchema,
+        team2: teamSchema,
     }),
     results: resultSchema.array(),
     round: positiveNonNegativeNumberSchema,
 })
 
+export type Team = z.infer<typeof teamSchema>
 export type Match = z.infer<typeof matchSchema>

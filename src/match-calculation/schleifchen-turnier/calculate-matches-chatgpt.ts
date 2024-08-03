@@ -1,4 +1,4 @@
-import { Match } from '@data/match/match'
+import { Match, Team } from '@data/match/match'
 import { Player } from '@data/player/player'
 
 export function calculateMatches(
@@ -91,9 +91,9 @@ function getSetDiffValueFromPointDiff(points: number): 1 | 0 | -1 {
 function sortPlayers(players: PlayerWithStats[]): PlayerWithStats[] {
     return players.sort((a, b) => {
         if (a.setDifference !== b.setDifference) {
-            return a.setDifference - b.setDifference
+            return b.setDifference - a.setDifference
         }
-        return a.rating - b.rating
+        return b.rating - a.rating
     })
 }
 
@@ -131,16 +131,14 @@ function createMatchesFromList(
     const matches: Omit<Match, 'id'>[] = []
 
     while (players.length > 0) {
-        const player1 = extractLastPlayerFromList(players)
-        const player2 = extractLastPlayerFromList(players)
-        const player3 = extractLastPlayerFromList(players)
-        const player4 = extractLastPlayerFromList(players)
+        const team1 = getNextPairing(players, previousMatches, 2)
+        const team2 = getNextPairing(players, previousMatches, 0)
 
         // TODO: Ensure no repeat pairings
         const newMatch: Omit<Match, 'id'> = {
             players: {
-                team1: [player1, player4],
-                team2: [player2, player3],
+                team1,
+                team2,
             },
             results: [],
             round,
@@ -150,6 +148,90 @@ function createMatchesFromList(
     }
 
     return matches
+}
+
+function getNextPairing(
+    players: PlayerWithStats[],
+    previousMatches: Match[],
+    offset: number,
+): Team {
+    const currentPlayer = players.splice(0, 1)[0]
+
+    const previousPartners = getPreviousPartners(previousMatches, currentPlayer)
+    let nextPartner = findNextPartner(previousPartners, players, offset)
+
+    if (nextPartner === null) {
+        nextPartner = findNextPartner(previousPartners, players, 0)
+    }
+
+    if (nextPartner === null) {
+        nextPartner = players[offset]
+    }
+
+    const index = players.findIndex(
+        (player) => player.name === nextPartner.name,
+    )
+    players.splice(index, 1)
+
+    return [currentPlayer, nextPartner]
+}
+
+function getPreviousPartners(
+    previousMatches: Match[],
+    currentPlayer: PlayerWithStats,
+): string[] {
+    const previousPartners: string[] = []
+    previousMatches.forEach((match) => {
+        const isInTeam1 = match.players.team1.some(
+            (player) => player.name === currentPlayer.name,
+        )
+        if (isInTeam1) {
+            const partner = getPartnerFromTeam(
+                match.players.team1,
+                currentPlayer,
+            )
+            previousPartners.push(partner.name)
+        }
+
+        const isInTeam2 = match.players.team1.some(
+            (player) => player.name === currentPlayer.name,
+        )
+        if (isInTeam2) {
+            const partner = getPartnerFromTeam(
+                match.players.team2,
+                currentPlayer,
+            )
+            previousPartners.push(partner.name)
+        }
+    })
+
+    return previousPartners
+}
+
+function getPartnerFromTeam(team: Team, currentPlayer: Player): Player {
+    if (team[0] !== undefined && team[0].name === currentPlayer.name) {
+        return team[1]
+    } else {
+        return team[0]
+    }
+}
+
+function findNextPartner(
+    previousPartners: string[],
+    players: PlayerWithStats[],
+    index: number,
+): PlayerWithStats | null {
+    if (index > players.length) {
+        return null
+    }
+
+    const possiblePartner = players[index]
+
+    if (previousPartners.includes(possiblePartner.name) === false) {
+        return possiblePartner
+    }
+
+    return findNextPartner(previousPartners, players, index + 1)
 }
 
 function extractLastPlayerFromList(players: PlayerWithStats[]): Player {
