@@ -1,16 +1,26 @@
-import { Player } from '@data/player/player'
+import { Player, playerSchema } from '@data/player/player'
+import { z } from 'zod'
 
-type Result = {
-    team1: number
-    team2: number
-}
+const positiveNonNegativeNumberSchema = z.preprocess(
+    (x) => parseInt(x as string),
+    z.number().int().nonnegative(),
+)
 
-export type Match = {
-    id: string
-    players: {
-        team1: Player[]
-        team2: Player[]
-    }
-    results: Result[]
-    round: number
-}
+export const resultSchema = z.object({
+    team1: positiveNonNegativeNumberSchema,
+    team2: positiveNonNegativeNumberSchema,
+})
+
+export type Result = z.infer<typeof resultSchema>
+
+export const matchSchema = z.object({
+    id: z.number(),
+    players: z.object({
+        team1: playerSchema.array(),
+        team2: playerSchema.array(),
+    }),
+    results: resultSchema.array(),
+    round: positiveNonNegativeNumberSchema,
+})
+
+export type Match = z.infer<typeof matchSchema>
