@@ -101,6 +101,10 @@ function extractWaitingPlayers(
     players: PlayerWithStats[],
     maximumNumberMatches: number,
 ): PlayerWithStats[] {
+    const maxPlayedGames = players.reduce((prev, player) => {
+        return Math.max(prev, player.countOfPlayedGames)
+    }, 0)
+
     const numberPossibleMatches = Math.floor(players.length / 4)
     const waitingPlayersDueToMissingFields =
         numberPossibleMatches > maximumNumberMatches
@@ -112,7 +116,17 @@ function extractWaitingPlayers(
 
     const waitingPlayersIndices = new Set<number>()
     while (waitingPlayersIndices.size < waitingPlayersCount) {
-        waitingPlayersIndices.add(Math.floor(Math.random() * players.length))
+        const randomWaitingPlayerIndex = Math.floor(
+            Math.random() * players.length,
+        )
+        if (
+            players[randomWaitingPlayerIndex].countOfPlayedGames <
+            maxPlayedGames
+        ) {
+            continue
+        }
+
+        waitingPlayersIndices.add(randomWaitingPlayerIndex)
     }
 
     const waitingPlayers: PlayerWithStats[] = []
