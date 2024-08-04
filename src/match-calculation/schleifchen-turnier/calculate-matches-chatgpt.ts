@@ -221,7 +221,7 @@ function findNextPartner(
     players: PlayerWithStats[],
     index: number,
 ): PlayerWithStats | null {
-    if (index > players.length) {
+    if (index > players.length - 1) {
         return null
     }
 
