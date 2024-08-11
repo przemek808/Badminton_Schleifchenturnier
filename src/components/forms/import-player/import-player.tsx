@@ -11,8 +11,9 @@ import {
 } from 'react-bootstrap'
 import { processCsv } from 'src/csv-import/process-csv'
 import { readCsv } from 'src/csv-import/read-csv'
-import { createPlayer } from '../create-player/create'
 import { useRouter } from 'next/navigation'
+import { HttpClient } from 'src/http-client/http-client'
+import { useHttpClient } from 'src/hooks/use-http-client'
 
 const errorStates = {
     noFile: 'NO_FILE',
@@ -26,6 +27,7 @@ export function ImportPlayer() {
     const [error, setError] = useState<ErrorStates>()
 
     const router = useRouter()
+    const client = useHttpClient()
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault()
@@ -40,7 +42,7 @@ export function ImportPlayer() {
             const csvText = await readCsv(file)
             const playerData = processCsv(csvText)
 
-            await createPlayer(playerData)
+            client.players.postBulk(playerData)
 
             router.refresh()
         } catch (error) {

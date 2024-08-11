@@ -2,7 +2,7 @@ import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
 import { calculateMatches } from '../../../match-calculation/schleifchen-turnier/calculate-matches-chatgpt'
 import { matchSchema } from '@data/match/match'
 import { isRoundValid } from 'src/match-calculation/verify-round'
-import { STATUS_CODES } from 'http'
+import { getHttpClient } from 'src/http-client/http-client'
 
 const MAXIMUM_NUMBER_MATCHES = 10
 
@@ -31,13 +31,10 @@ export async function GET() {
         return response
     }
 
-    const allPlayers: any[] = await (
-        await fetch('http://localhost:4000/players', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-    ).json()
+    const allPlayers = await getHttpClient({
+        fetch,
+        host: 'http://localhost:3000',
+    }).players.getAll()
 
     const newMatches = calculateMatches(
         allPlayers,

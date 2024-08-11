@@ -2,27 +2,11 @@ import { CreatePlayer } from '@components/forms/create-player/create-player'
 import { ImportPlayer } from '@components/forms/import-player/import-player'
 import { PlayerCard } from '@components/player-card/player-card'
 import { Col, Container, Row } from 'react-bootstrap'
-
-async function getData(): Promise<any[]> {
-    const res = await fetch('http://localhost:3000/api/players', {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        cache: 'no-cache',
-    })
-    // The return value is *not* serialized
-    // You can return Date, Map, Set, etc.
-
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
-    }
-
-    return res.json()
-}
+import { getHttpClient } from 'src/http-client/http-client'
 
 export default async function Page() {
-    const players = await getData()
+    const client = getHttpClient({ fetch, host: 'http://localhost:3000' })
+    const players = await client.players.getAll()
 
     return (
         <main>

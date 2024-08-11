@@ -56,7 +56,7 @@ export function MatchCard(props: MatchCardProps) {
             await updateMatch(id, { results: [...results, newResult] })
             router.refresh()
         },
-        [id, results],
+        [id, results, router],
     )
 
     const handleResultDeletion = useCallback(
@@ -66,7 +66,7 @@ export function MatchCard(props: MatchCardProps) {
             await updateMatch(id, { results })
             router.refresh()
         },
-        [id, results],
+        [id, results, router],
     )
 
     return (

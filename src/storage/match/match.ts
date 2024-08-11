@@ -1,4 +1,4 @@
-import { Player, playerSchema } from '@data/player/player'
+import { playerSchema } from 'src/http-client/entities/player/player'
 import { z } from 'zod'
 
 const positiveNonNegativeNumberSchema = z.preprocess(

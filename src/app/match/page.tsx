@@ -40,20 +40,21 @@ export default async function MatchesPage() {
                 <div>Keine Matches gefunden!</div>
             ) : (
                 Array.from({ length: currentRoundNumber }).map((_, index) => {
+                    const roundNumber = index + 1
                     const matchesOfRound = matches.filter(
-                        (match) => match.round === index + 1,
+                        (match) => match.round === roundNumber,
                     )
 
                     return (
-                        <Fragment>
-                            <h2>Runde {index + 1}</h2>
+                        <Fragment key={`round_${roundNumber}`}>
+                            <h2>Runde {roundNumber}</h2>
                             <Container fluid className="px-3">
                                 <Row xs={1} lg={2} xxl={3} className="g-2">
                                     {matchesOfRound.map((match, index) => (
                                         <Col xs key={match.id}>
                                             <MatchCard
                                                 match={match}
-                                                displayNumber={index + 1}
+                                                displayNumber={roundNumber}
                                             />
                                         </Col>
                                     ))}

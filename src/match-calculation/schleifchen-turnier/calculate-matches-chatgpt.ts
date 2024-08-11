@@ -1,5 +1,5 @@
 import { Match, Team } from '@data/match/match'
-import { Player } from '@data/player/player'
+import { Player } from 'src/http-client/entities/player/player'
 
 export function calculateMatches(
     players: Player[],

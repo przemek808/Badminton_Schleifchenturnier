@@ -6,7 +6,7 @@ import {
     CardText,
     CardTitle,
 } from 'react-bootstrap'
-import { Player } from 'src/storage/player/player'
+import { Player } from 'src/http-client/entities/player/player'
 
 type PlayerCardProps = {
     player: Player

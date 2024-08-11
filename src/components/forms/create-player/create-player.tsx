@@ -1,7 +1,6 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
-import { createPlayer } from './create'
 import {
     Button,
     Col,
@@ -13,18 +12,22 @@ import {
     Row,
 } from 'react-bootstrap'
 import { useRouter } from 'next/navigation'
+import { useHttpClient } from 'src/hooks/use-http-client'
 
 export function CreatePlayer() {
     const [name, setName] = useState('')
     const [rating, setRating] = useState('')
 
     const router = useRouter()
+    const client = useHttpClient()
 
     async function handleSubmit(event: FormEvent) {
         event.preventDefault()
         event.stopPropagation()
 
-        await createPlayer({ name, rating: parseInt(rating) })
+        const player = { name, rating: parseInt(rating) }
+
+        await client.players.post(player)
 
         router.refresh()
     }
