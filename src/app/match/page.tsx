@@ -1,8 +1,18 @@
+import { GenerateReport } from '@components/generate-report/generate-report'
 import { MatchCard } from '@components/match-card/match-card'
+import { NextRound } from '@components/next-round/next-round'
 import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
 import { Match } from '@data/match/match'
 import { Fragment } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import {
+    Accordion,
+    AccordionBody,
+    AccordionHeader,
+    AccordionItem,
+    Col,
+    Container,
+    Row,
+} from 'react-bootstrap'
 
 async function getData(): Promise<{
     matches: Match[]
@@ -36,33 +46,55 @@ export default async function MatchesPage() {
 
     return (
         <main>
+            <h2>Rundenmanagement</h2>
+            <NextRound />
+            <GenerateReport />
+            <h2 className="mt-4">Runden</h2>
             {matches.length === 0 ? (
                 <div>Keine Matches gefunden!</div>
             ) : (
-                Array.from({ length: currentRoundNumber }).map((_, index) => {
-                    const roundNumber = index + 1
-                    const matchesOfRound = matches.filter(
-                        (match) => match.round === roundNumber,
-                    )
+                <Accordion defaultActiveKey={`${currentRoundNumber}`}>
+                    {Array.from({ length: currentRoundNumber }).map(
+                        (_, index) => {
+                            const roundNumber = index + 1
+                            const matchesOfRound = matches.filter(
+                                (match) => match.round === roundNumber,
+                            )
 
-                    return (
-                        <Fragment key={`round_${roundNumber}`}>
-                            <h2>Runde {roundNumber}</h2>
-                            <Container fluid className="px-3">
-                                <Row xs={1} lg={2} xxl={3} className="g-2">
-                                    {matchesOfRound.map((match, index) => (
-                                        <Col xs key={match.id}>
-                                            <MatchCard
-                                                match={match}
-                                                displayNumber={roundNumber}
-                                            />
-                                        </Col>
-                                    ))}
-                                </Row>
-                            </Container>
-                        </Fragment>
-                    )
-                })
+                            return (
+                                <AccordionItem
+                                    eventKey={`${roundNumber}`}
+                                    key={`${roundNumber}`}
+                                >
+                                    <AccordionHeader>
+                                        Runde {roundNumber}
+                                    </AccordionHeader>
+                                    <AccordionBody>
+                                        <Container fluid className="px-3">
+                                            <Row
+                                                xs={1}
+                                                lg={2}
+                                                xxl={3}
+                                                className="g-2"
+                                            >
+                                                {matchesOfRound.map((match) => (
+                                                    <Col xs key={match.id}>
+                                                        <MatchCard
+                                                            match={match}
+                                                            displayNumber={
+                                                                roundNumber
+                                                            }
+                                                        />
+                                                    </Col>
+                                                ))}
+                                            </Row>
+                                        </Container>
+                                    </AccordionBody>
+                                </AccordionItem>
+                            )
+                        },
+                    )}
+                </Accordion>
             )}
         </main>
     )

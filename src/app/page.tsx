@@ -41,7 +41,6 @@ export default async function Home() {
     return (
         <main className="px-3">
             <h1>Badminton Schleifchenturnier</h1>
-            <NextRound />
             <h2>Matches</h2>
             <div>Aktive Runde: {currentRoundNumber}</div>
             {matches.length === 0 ? (
