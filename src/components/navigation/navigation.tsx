@@ -33,6 +33,9 @@ export function Navigation(): ReactNode {
                             <Nav.Link href="/match" as={Link}>
                                 Matches
                             </Nav.Link>
+                            <Nav.Link href="/result" as={Link}>
+                                Result
+                            </Nav.Link>
                         </Nav>
                     </Offcanvas.Body>
                 </Navbar.Offcanvas>

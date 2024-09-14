@@ -8,7 +8,7 @@ type Result = {
     lostPoints: number
 }
 
-type PlayerResult = Result & {
+export type PlayerResult = Result & {
     player: Player
 }
 

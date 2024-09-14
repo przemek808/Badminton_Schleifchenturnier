@@ -1,4 +1,3 @@
-import { GenerateReport } from '@components/generate-report/generate-report'
 import { MatchCard } from '@components/match-card/match-card'
 import { NextRound } from '@components/next-round/next-round'
 import { PageWrapper } from '@components/page-wrapper/page-wrapper'
@@ -48,7 +47,6 @@ export default async function MatchesPage() {
         <PageWrapper>
             <h2>Rundenmanagement</h2>
             <NextRound />
-            <GenerateReport />
             <h2 className="mt-4">Runden</h2>
             {matches.length === 0 ? (
                 <div>Keine Matches gefunden!</div>
