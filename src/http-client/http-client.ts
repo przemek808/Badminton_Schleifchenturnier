@@ -11,7 +11,7 @@ export type HttpClient = {
 
 type HttpClientDependencies = {
     fetch: typeof fetch
-    host: string
+    host: string | null
 }
 
 export function getHttpClient(

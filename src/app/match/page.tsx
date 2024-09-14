@@ -1,9 +1,9 @@
 import { GenerateReport } from '@components/generate-report/generate-report'
 import { MatchCard } from '@components/match-card/match-card'
 import { NextRound } from '@components/next-round/next-round'
+import { PageWrapper } from '@components/page-wrapper/page-wrapper'
 import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
 import { Match } from '@data/match/match'
-import { Fragment } from 'react'
 import {
     Accordion,
     AccordionBody,
@@ -45,7 +45,7 @@ export default async function MatchesPage() {
     const { currentRoundNumber, matches } = await getData()
 
     return (
-        <main>
+        <PageWrapper>
             <h2>Rundenmanagement</h2>
             <NextRound />
             <GenerateReport />
@@ -53,7 +53,10 @@ export default async function MatchesPage() {
             {matches.length === 0 ? (
                 <div>Keine Matches gefunden!</div>
             ) : (
-                <Accordion defaultActiveKey={`${currentRoundNumber}`}>
+                <Accordion
+                    defaultActiveKey={[`${currentRoundNumber}`]}
+                    alwaysOpen
+                >
                     {Array.from({ length: currentRoundNumber }).map(
                         (_, index) => {
                             const roundNumber = index + 1
@@ -96,6 +99,6 @@ export default async function MatchesPage() {
                     )}
                 </Accordion>
             )}
-        </main>
+        </PageWrapper>
     )
 }

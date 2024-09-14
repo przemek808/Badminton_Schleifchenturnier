@@ -14,7 +14,7 @@ export type EntityClient<Entity, MutationPayload> = {
 type EntityClientArgs<EntitySchema extends ZodType<any, any, any>> = {
     entitySchema: EntitySchema
     fetch: typeof fetch
-    host: string
+    host: string | null
     endpoint: string
 }
 

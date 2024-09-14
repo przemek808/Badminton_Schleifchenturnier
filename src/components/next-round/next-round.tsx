@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
 
 async function generateNextRound() {
-    const res = await fetch('http://localhost:3000/api/generate-next-round', {
+    const res = await fetch('/api/generate-next-round', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

@@ -1,6 +1,15 @@
 import path from 'path'
 
-export function buildUrl(host: string, endpoint: string, id?: string): URL {
+export function buildUrl(
+    host: string | null,
+    endpoint: string,
+    id?: string,
+): string {
     const urlPath = id ? path.join(endpoint, id) : endpoint
-    return new URL(urlPath, host)
+
+    if (host === null) {
+        return urlPath
+    }
+
+    return new URL(urlPath, host).toString()
 }

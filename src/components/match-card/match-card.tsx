@@ -20,7 +20,7 @@ import InputGroupText from 'react-bootstrap/esm/InputGroupText'
 import { TrashIcon } from 'src/icons/trash-icon'
 
 async function updateMatch(id: number, matchUpdate: Partial<Match>) {
-    const res = await fetch(`http://localhost:3000/api/matches/${id}`, {
+    const res = await fetch(`/api/matches/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

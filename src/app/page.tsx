@@ -1,5 +1,5 @@
 import { MatchCard } from '@components/match-card/match-card'
-import { NextRound } from '@components/next-round/next-round'
+import { PageWrapper } from '@components/page-wrapper/page-wrapper'
 import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
 import { Match } from '@data/match/match'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -39,7 +39,7 @@ export default async function Home() {
     const { currentRoundNumber, matches } = await getData()
 
     return (
-        <main className="px-3">
+        <PageWrapper>
             <h1>Badminton Schleifchenturnier</h1>
             <h2>Matches</h2>
             <div>Aktive Runde: {currentRoundNumber}</div>
@@ -59,6 +59,6 @@ export default async function Home() {
                     </Row>
                 </Container>
             )}
-        </main>
+        </PageWrapper>
     )
 }

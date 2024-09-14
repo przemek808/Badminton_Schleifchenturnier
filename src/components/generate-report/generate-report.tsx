@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
 
 async function generateReport() {
-    const res = await fetch('http://localhost:3000/api/generate-report', {
+    const res = await fetch('/api/generate-report', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
