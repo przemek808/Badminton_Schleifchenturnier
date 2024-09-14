@@ -9,7 +9,7 @@ export function Navigation(): ReactNode {
     const { role } = useSession()
 
     return (
-        <Navbar expand="md" className="bg-body-tertiary mb-3">
+        <Navbar expand="md" className="bg-body-tertiary mb-3" collapseOnSelect>
             <Container fluid>
                 <Navbar.Brand as={Link} href="/">
                     Badminton Schleifchenturnier
