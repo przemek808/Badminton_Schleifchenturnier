@@ -114,8 +114,8 @@ function extractWaitingPlayers(
     const waitingPlayersCount =
         (players.length % 4) + waitingPlayersDueToMissingFields
 
-    const waitingPlayersIndices = new Set<number>()
-    while (waitingPlayersIndices.size < waitingPlayersCount) {
+    const waitingPlayers: PlayerWithStats[] = []
+    while (waitingPlayers.length < waitingPlayersCount) {
         const randomWaitingPlayerIndex = Math.floor(
             Math.random() * players.length,
         )
@@ -126,12 +126,7 @@ function extractWaitingPlayers(
             continue
         }
 
-        waitingPlayersIndices.add(randomWaitingPlayerIndex)
-    }
-
-    const waitingPlayers: PlayerWithStats[] = []
-    for (const index of waitingPlayersIndices) {
-        waitingPlayers.push(players.splice(index, 1)[0])
+        waitingPlayers.push(players.splice(randomWaitingPlayerIndex, 1)[0])
     }
 
     return waitingPlayers

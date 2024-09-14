@@ -4,7 +4,7 @@ import { matchSchema } from '@data/match/match'
 import { isRoundValid } from 'src/match-calculation/verify-round'
 import { getHttpClient } from 'src/http-client/http-client'
 
-const MAXIMUM_NUMBER_MATCHES = 10
+const MAXIMUM_NUMBER_MATCHES = parseInt(process.env.MAX_FIELD_COUNT || '6', 10)
 
 export async function GET() {
     const response = await fetch('http://localhost:4000/matches', {

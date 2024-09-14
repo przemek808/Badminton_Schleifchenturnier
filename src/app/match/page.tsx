@@ -77,16 +77,18 @@ export default async function MatchesPage() {
                                                 xxl={3}
                                                 className="g-2"
                                             >
-                                                {matchesOfRound.map((match) => (
-                                                    <Col xs key={match.id}>
-                                                        <MatchCard
-                                                            match={match}
-                                                            displayNumber={
-                                                                roundNumber
-                                                            }
-                                                        />
-                                                    </Col>
-                                                ))}
+                                                {matchesOfRound.map(
+                                                    (match, index) => (
+                                                        <Col xs key={match.id}>
+                                                            <MatchCard
+                                                                match={match}
+                                                                displayNumber={
+                                                                    index + 1
+                                                                }
+                                                            />
+                                                        </Col>
+                                                    ),
+                                                )}
                                             </Row>
                                         </Container>
                                     </AccordionBody>
