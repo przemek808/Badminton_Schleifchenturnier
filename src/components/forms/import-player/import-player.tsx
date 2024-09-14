@@ -54,7 +54,7 @@ export function ImportPlayer() {
     return (
         <Form onSubmit={handleSubmit}>
             <FormGroup controlId="csvImport">
-                <FormLabel>Spieler daten von CSV importieren</FormLabel>
+                <FormLabel>Spielerdaten per CSV importieren</FormLabel>
                 <FormControl
                     type="file"
                     accept=".csv"

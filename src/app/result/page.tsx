@@ -27,13 +27,13 @@ export default async function ResultPage() {
 
     return (
         <PageWrapper adminOnly={false}>
-            <h1>Result Page</h1>
+            <h1>Aktuelle Ergebnisübersicht</h1>
             <Table striped hover>
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Saetze</th>
+                        <th>Sätze</th>
                         <th>Punkte</th>
                     </tr>
                 </thead>

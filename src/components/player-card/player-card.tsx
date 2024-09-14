@@ -3,7 +3,6 @@ import {
     CardBody,
     CardLink,
     CardSubtitle,
-    CardText,
     CardTitle,
 } from 'react-bootstrap'
 import { Player } from 'src/http-client/entities/player/player'
@@ -24,9 +23,8 @@ export function PlayerCard(props: PlayerCardProps) {
                 <CardSubtitle className="mb-2 text-muted">
                     {rating}
                 </CardSubtitle>
-                <CardText>Played Matches</CardText>
                 <CardLink>Bearbeiten</CardLink>
-                <CardLink>Loeschen</CardLink>
+                <CardLink>Löschen</CardLink>
             </CardBody>
         </Card>
     )

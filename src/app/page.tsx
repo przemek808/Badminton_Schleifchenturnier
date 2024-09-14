@@ -41,10 +41,10 @@ export default async function Home() {
     return (
         <PageWrapper adminOnly={false}>
             <h1>Badminton Schleifchenturnier</h1>
-            <h2>Matches</h2>
+            <h2>Aktuelle Spiele</h2>
             <div>Aktive Runde: {currentRoundNumber}</div>
             {matches.length === 0 ? (
-                <div>Keine Matches gefunden!</div>
+                <div>Keine Spiele gefunden!</div>
             ) : (
                 <Container fluid className="px-0">
                     <Row xs={1} lg={2} xxl={3} className="g-2">
