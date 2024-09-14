@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap'
 import Link from 'next/link'
 import { useSession } from 'src/context/session-context/session-context'
+import { Login } from '@components/login/login'
 
 export function Navigation(): ReactNode {
     const { role } = useSession()
@@ -27,6 +28,7 @@ export function Navigation(): ReactNode {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
+                            <Login as={Nav.Link} />
                             <Nav.Link href="/" as={Link}>
                                 Home
                             </Nav.Link>
