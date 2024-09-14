@@ -14,9 +14,27 @@ import {
 import { useRouter } from 'next/navigation'
 import { useHttpClient } from 'src/hooks/use-http-client'
 
-export function CreatePlayer() {
-    const [name, setName] = useState('')
-    const [rating, setRating] = useState('')
+type EditPlayerProps = {
+    id: string
+    name: string
+    rating: string
+    type: 'edit'
+}
+
+type CreatePlayerProps = {
+    type: 'create'
+}
+
+type PlayerFromProps = EditPlayerProps | CreatePlayerProps
+
+export function PlayerForm(props: PlayerFromProps) {
+    const { type } = props
+
+    const playerName = type === 'edit' ? props.name : ''
+    const playerRating = type === 'edit' ? props.rating : ''
+
+    const [name, setName] = useState(playerName)
+    const [rating, setRating] = useState(playerRating)
 
     const router = useRouter()
     const client = useHttpClient()
@@ -25,9 +43,19 @@ export function CreatePlayer() {
         event.preventDefault()
         event.stopPropagation()
 
-        const player = { name, rating: parseInt(rating) }
+        const player = { name, rating: parseInt(rating, 10) }
 
-        await client.players.post(player)
+        if (type === 'edit') {
+            await client.players.patch(props.id, {
+                name,
+                rating: parseInt(rating, 10),
+            })
+        } else {
+            await client.players.post(player)
+
+            setName('')
+            setRating('')
+        }
 
         router.refresh()
     }
@@ -42,6 +70,7 @@ export function CreatePlayer() {
                         onChange={(event) => {
                             setName(event.target.value)
                         }}
+                        value={name}
                     />
                     <FormText className="text-muted">
                         Der angegebene Name muss eindeutig sein. 2 Spieler mit
@@ -56,6 +85,7 @@ export function CreatePlayer() {
                         onChange={(event) => {
                             setRating(event.target.value)
                         }}
+                        value={rating}
                     />
                     <FormText className="text-muted">
                         Das Rating ist ein Schaetzwert der Staerke des Spielers.
@@ -64,7 +94,7 @@ export function CreatePlayer() {
             </Row>
 
             <Button variant="primary" type="submit" className="mt-3">
-                Spieler erstellen
+                {type === 'edit' ? 'Übernehmen' : 'Spieler erstellen'}
             </Button>
         </Form>
     )

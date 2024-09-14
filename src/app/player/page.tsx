@@ -1,4 +1,4 @@
-import { CreatePlayer } from '@components/forms/create-player/create-player'
+import { PlayerForm } from '@components/forms/player-form/player-form'
 import { ImportPlayer } from '@components/forms/import-player/import-player'
 import { PageWrapper } from '@components/page-wrapper/page-wrapper'
 import { PlayerCard } from '@components/player-card/player-card'
@@ -21,7 +21,7 @@ export default async function Page() {
                 </Row>
             </Container>
             <div className="mt-5">
-                <CreatePlayer />
+                <PlayerForm type="create" />
             </div>
             <div className="mt-5">
                 <ImportPlayer />
