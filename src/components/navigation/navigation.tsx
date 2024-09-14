@@ -3,8 +3,11 @@
 import { ReactNode } from 'react'
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap'
 import Link from 'next/link'
+import { useSession } from 'src/context/session-context/session-context'
 
 export function Navigation(): ReactNode {
+    const { role } = useSession()
+
     return (
         <Navbar expand="md" className="bg-body-tertiary mb-3">
             <Container fluid>
@@ -27,9 +30,11 @@ export function Navigation(): ReactNode {
                             <Nav.Link href="/" as={Link}>
                                 Home
                             </Nav.Link>
-                            <Nav.Link href="/player" as={Link}>
-                                Players
-                            </Nav.Link>
+                            {role === 'admin' && (
+                                <Nav.Link href="/player" as={Link}>
+                                    Players
+                                </Nav.Link>
+                            )}
                             <Nav.Link href="/match" as={Link}>
                                 Matches
                             </Nav.Link>

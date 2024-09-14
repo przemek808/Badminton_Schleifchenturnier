@@ -1,6 +1,7 @@
 import { MatchCard } from '@components/match-card/match-card'
 import { NextRound } from '@components/next-round/next-round'
 import { PageWrapper } from '@components/page-wrapper/page-wrapper'
+import { RoundManagement } from '@components/round-management/round-management'
 import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
 import { Match } from '@data/match/match'
 import {
@@ -44,9 +45,8 @@ export default async function MatchesPage() {
     const { currentRoundNumber, matches } = await getData()
 
     return (
-        <PageWrapper>
-            <h2>Rundenmanagement</h2>
-            <NextRound />
+        <PageWrapper adminOnly={false}>
+            <RoundManagement />
             <h2 className="mt-4">Runden</h2>
             {matches.length === 0 ? (
                 <div>Keine Matches gefunden!</div>

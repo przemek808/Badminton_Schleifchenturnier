@@ -39,7 +39,7 @@ export default async function Home() {
     const { currentRoundNumber, matches } = await getData()
 
     return (
-        <PageWrapper>
+        <PageWrapper adminOnly={false}>
             <h1>Badminton Schleifchenturnier</h1>
             <h2>Matches</h2>
             <div>Aktive Runde: {currentRoundNumber}</div>

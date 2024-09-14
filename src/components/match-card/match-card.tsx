@@ -17,6 +17,7 @@ import {
     Table,
 } from 'react-bootstrap'
 import InputGroupText from 'react-bootstrap/esm/InputGroupText'
+import { useSession } from 'src/context/session-context/session-context'
 import { TrashIcon } from 'src/icons/trash-icon'
 
 async function updateMatch(id: number, matchUpdate: Partial<Match>) {
@@ -48,6 +49,7 @@ export function MatchCard(props: MatchCardProps) {
     } = props
 
     const router = useRouter()
+    const { role } = useSession()
 
     const handleResultInput = useCallback(
         async (data: unknown) => {
@@ -98,7 +100,7 @@ export function MatchCard(props: MatchCardProps) {
                             <th>Satz</th>
                             <th>Team 1</th>
                             <th>Team 2</th>
-                            <th></th>
+                            {role === 'admin' ? <th></th> : null}
                         </tr>
                     </thead>
                     <tbody>
@@ -107,47 +109,54 @@ export function MatchCard(props: MatchCardProps) {
                                 <th>{index + 1}</th>
                                 <th>{result.team1}</th>
                                 <th>{result.team2}</th>
-                                <th>
-                                    <Button
-                                        variant="danger"
-                                        size="sm"
-                                        onClick={() =>
-                                            handleResultDeletion(index)
-                                        }
-                                    >
-                                        <TrashIcon height="15px" width="15px" />
-                                    </Button>
-                                </th>
+                                {role === 'admin' ? (
+                                    <th>
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
+                                            onClick={() =>
+                                                handleResultDeletion(index)
+                                            }
+                                        >
+                                            <TrashIcon
+                                                height="15px"
+                                                width="15px"
+                                            />
+                                        </Button>
+                                    </th>
+                                ) : null}
                             </tr>
                         ))}
                     </tbody>
                 </Table>
-                <Form
-                    onSubmit={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
+                {role === 'admin' ? (
+                    <Form
+                        onSubmit={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
 
-                        const { team1, team2 } = e.currentTarget
+                            const { team1, team2 } = e.currentTarget
 
-                        handleResultInput({
-                            team1: team1.value,
-                            team2: team2.value,
-                        })
-                    }}
-                >
-                    <InputGroup className="mb-3">
-                        <InputGroupText>Satz</InputGroupText>
-                        <FormControl aria-label="Team 1" name="team1" />
-                        <FormControl aria-label="Team 2" name="team2" />
-                        <Button
-                            variant="outline-secondary"
-                            id="button-addon2"
-                            type="submit"
-                        >
-                            Speichern
-                        </Button>
-                    </InputGroup>
-                </Form>
+                            handleResultInput({
+                                team1: team1.value,
+                                team2: team2.value,
+                            })
+                        }}
+                    >
+                        <InputGroup className="mb-3">
+                            <InputGroupText>Satz</InputGroupText>
+                            <FormControl aria-label="Team 1" name="team1" />
+                            <FormControl aria-label="Team 2" name="team2" />
+                            <Button
+                                variant="outline-secondary"
+                                id="button-addon2"
+                                type="submit"
+                            >
+                                Speichern
+                            </Button>
+                        </InputGroup>
+                    </Form>
+                ) : null}
             </CardBody>
         </Card>
     )

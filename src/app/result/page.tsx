@@ -26,7 +26,7 @@ export default async function ResultPage() {
     const report = await generateReport()
 
     return (
-        <PageWrapper>
+        <PageWrapper adminOnly={false}>
             <h1>Result Page</h1>
             <Table striped hover>
                 <thead>
