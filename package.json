@@ -2,6 +2,7 @@
     "name": "badminton-schleifchen-turnier",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
     "scripts": {
         "next:dev": "next dev",
         "build": "next build",
@@ -14,11 +15,20 @@
         "dev": "concurrently --prefix-colors \"blue,green\" --names \"next,json-server\" \"npm run next:dev\" \"npm run start:json-server\"",
         "resetDatabase": "node src/scripts/reset-database.js",
         "postinstall": "npm run resetDatabase",
-        "test:typecheck": "tsc --noEmit"
+        "test:typecheck": "tsc --noEmit",
+        "compile:frontend": "tsc --build src/frontend/tsconfig.new.json",
+        "prebuild:frontend": "npm run compile:frontend",
+        "build:frontend": "node target/build/src/frontend/build-support/build/build.js",
+        "prestart:frontend": "npm run build:frontend",
+        "start:frontend": "node target/build/src/frontend/app-server/entry-server.js",
+        "start:frontend:watch": "nodemon --watch 'src/frontend' --ext '*' --exec 'npm run start:frontend'"
     },
     "dependencies": {
+        "@hono/node-server": "^1.13.1",
+        "@tanstack/react-router": "1.58.3",
         "bootstrap": "5.3.3",
         "concurrently": "^8.2.2",
+        "hono": "^4.6.2",
         "json-server": "^0.17.4",
         "next": "14.2.3",
         "pino": "9.3.2",
@@ -28,13 +38,17 @@
         "zod": "3.23.8"
     },
     "devDependencies": {
+        "@rspack/cli": "1.0.5",
+        "@rspack/core": "1.0.5",
         "@types/node": "20.12.12",
         "@types/react": "18.3.2",
         "@types/react-dom": "18.3.0",
+        "@vitejs/plugin-react": "^4.3.1",
         "eslint": "8.57.0",
         "eslint-config-next": "14.2.3",
         "eslint-config-prettier": "9.1.0",
         "eslint-plugin-prettier": "5.1.3",
+        "nodemon": "3.1.7",
         "prettier": "3.2.5",
         "typescript": "5.4.5"
     }

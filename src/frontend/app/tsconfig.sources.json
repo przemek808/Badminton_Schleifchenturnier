@@ -1,0 +1,12 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "../../../target/buildcache/frontend/app-sources.tsbuildinfo",
+        "lib": ["ES2022", "DOM"],
+        "jsx": "react-jsx",
+        "skipLibCheck": true
+    },
+    "references": [],
+    "include": ["./**/*.ts", "./**/*.tsx"],
+    "exclude": ["./**/*.test.ts", "./**/*.test.tsx"]
+}
