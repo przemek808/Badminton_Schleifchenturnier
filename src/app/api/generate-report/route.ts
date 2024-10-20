@@ -204,3 +204,6 @@ export async function GET() {
         },
     })
 }
+
+// forces the route handler to be dynamic
+export const dynamic = 'force-dynamic'
