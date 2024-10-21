@@ -1,0 +1,9 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "../../../target/buildcache/frontend/build-support-unit-tests.tsbuildinfo",
+        "types": ["node"]
+    },
+    "references": [{ "path": "./tsconfig.sources.json" }],
+    "include": ["./**/*.test.ts"]
+}

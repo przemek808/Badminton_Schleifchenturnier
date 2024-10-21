@@ -1,0 +1,12 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "../../../target/buildcache/frontend/app-client-unit-tests.tsbuildinfo",
+        "lib": ["ES2022"],
+        "jsx": "react-jsx",
+        "types": ["node"],
+        "skipLibCheck": true
+    },
+    "references": [{ "path": "./tsconfig.sources.json" }],
+    "include": ["./**/*.test.ts", "./**/*.test.tsx"]
+}

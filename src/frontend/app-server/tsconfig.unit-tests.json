@@ -1,0 +1,11 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "../../../target/buildcache/frontend/app-server-unit-tests.tsbuildinfo",
+        "lib": ["ES2023"],
+        "types": ["node"],
+        "skipLibCheck": true
+    },
+    "references": [{ "path": "./tsconfig.sources.json" }],
+    "include": ["./**/*.test.ts"]
+}
