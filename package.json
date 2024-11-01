@@ -17,7 +17,7 @@
         "resetDatabase": "node src/scripts/reset-database.js",
         "postinstall": "npm run resetDatabase",
         "test:typecheck": "tsc --noEmit",
-        "compile:frontend": "tsc --build src/frontend/tsconfig.new.json",
+        "compile:frontend": "tsc --build tsconfig.new.json",
         "prebuild:frontend": "npm run compile:frontend",
         "build:frontend": "node target/build/src/frontend/build-support/build/build.js",
         "prestart:frontend": "npm run build:frontend",

@@ -1,4 +1,4 @@
 {
     "files": [],
-    "references": [{ "path": "./source/frontend/tsconfig.unit-tests.json" }]
+    "references": [{ "path": "./src/frontend/tsconfig.unit-tests.json" }]
 }

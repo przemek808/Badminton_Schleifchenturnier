@@ -12,7 +12,7 @@ async function createServer() {
     const app = new Hono()
 
     app.use(
-        `/__bundles/${clientBundle}`,
+        `/__static/${clientBundle}`,
         serveStatic({
             path: `target/build/client/${clientBundle}`,
         }),
@@ -21,14 +21,14 @@ async function createServer() {
     app.use(
         '/__static/bundle.css',
         serveStatic({
-            path: 'target/build/static/css/bootstrap.min.css',
+            path: 'target/build/bootstrap/bootstrap.min.css',
         }),
     )
 
     app.use(
         '/__static/bundle.js',
         serveStatic({
-            path: 'target/build/static/js/react-bootstrap.min.js',
+            path: 'target/build/bootstrap/react-bootstrap.min.js',
         }),
     )
 
@@ -45,7 +45,7 @@ async function createServer() {
                 </head>
                 <body>
                     <div id="app"></div>
-                    <script type="module" src="/__bundles/${clientBundle}"></script>
+                    <script type="module" src="/__static/${clientBundle}"></script>
                 </body>
             </html>
         `)

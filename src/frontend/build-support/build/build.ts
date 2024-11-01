@@ -20,6 +20,62 @@ function buildConfig(
             clean: true,
             filename: `[name]-[contenthash].js`,
         },
+        plugins: [
+            new rspack.CopyRspackPlugin({
+                patterns: [
+                    {
+                        from: 'react-bootstrap.min.js',
+                        to: path.resolve(
+                            projectRootFolder,
+                            'target',
+                            'build',
+                            'bootstrap',
+                        ),
+                        toType: 'dir',
+                        context: path.resolve(
+                            projectRootFolder,
+                            'node_modules',
+                            'react-bootstrap',
+                            'dist',
+                        ),
+                    },
+                    {
+                        from: 'bootstrap.bundle.min.js',
+                        to: path.resolve(
+                            projectRootFolder,
+                            'target',
+                            'build',
+                            'bootstrap',
+                        ),
+                        toType: 'dir',
+                        context: path.resolve(
+                            projectRootFolder,
+                            'node_modules',
+                            'bootstrap',
+                            'dist',
+                            'js',
+                        ),
+                    },
+                    {
+                        from: 'bootstrap.min.css',
+                        to: path.resolve(
+                            projectRootFolder,
+                            'target',
+                            'build',
+                            'bootstrap',
+                        ),
+                        toType: 'dir',
+                        context: path.resolve(
+                            projectRootFolder,
+                            'node_modules',
+                            'bootstrap',
+                            'dist',
+                            'css',
+                        ),
+                    },
+                ],
+            }),
+        ],
     }
 }
 
