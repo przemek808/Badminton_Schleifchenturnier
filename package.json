@@ -21,7 +21,7 @@
         "prebuild:frontend": "npm run compile:frontend",
         "build:frontend": "node target/build/src/frontend/build-support/build/build.js",
         "prestart:frontend": "npm run build:frontend",
-        "start:frontend": "node target/build/src/frontend/app-server/entry-server.js",
+        "start:frontend": "node --env-file .env target/build/src/frontend/app-server/entry-server.js",
         "start:frontend:watch": "nodemon --watch 'src/frontend' --ext '*' --exec 'npm run start:frontend'"
     },
     "dependencies": {

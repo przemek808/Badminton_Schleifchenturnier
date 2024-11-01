@@ -2,6 +2,7 @@
 // import { PageWrapper } from '@components/page-wrapper/page-wrapper'
 import { Table } from 'react-bootstrap'
 import { PageWrapper } from '../common/page-wrapper/page-wrapper.js'
+import { useRouteContext } from '@tanstack/react-router'
 
 // async function generateReport(): Promise<PlayerResult[]> {
 //     const res = await fetch('http://localhost:3000/api/generate-report', {
@@ -24,9 +25,10 @@ import { PageWrapper } from '../common/page-wrapper/page-wrapper.js'
 
 export function ResultsPage() {
     // const report = await generateReport()
+    const { session } = useRouteContext({ from: '/results' })
 
     return (
-        <PageWrapper adminOnly={false}>
+        <PageWrapper adminOnly={false} session={session}>
             <h1>Aktuelle Ergebnisübersicht</h1>
             <Table striped hover>
                 <thead>

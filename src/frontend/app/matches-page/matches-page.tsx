@@ -1,5 +1,6 @@
 // import { MatchCard } from '@components/match-card/match-card'
 // import { RoundManagement } from '@components/round-management/round-management'
+import { useRouteContext } from '@tanstack/react-router'
 import { PageWrapper } from '../common/page-wrapper/page-wrapper.js'
 // import { getCurrentRoundNumber } from '@data/match/get-current-round-number'
 // import { Match } from '@data/match/match'
@@ -42,9 +43,10 @@ import { PageWrapper } from '../common/page-wrapper/page-wrapper.js'
 
 export function MatchesPage() {
     // const { currentRoundNumber, matches } = await getData()
+    const { session } = useRouteContext({ from: '/matches' })
 
     return (
-        <PageWrapper adminOnly={false}>
+        <PageWrapper adminOnly={false} session={session}>
             {/* <RoundManagement /> */}
             <h2 className="mt-4">Runden</h2>
             {/* {matches.length === 0 ? (

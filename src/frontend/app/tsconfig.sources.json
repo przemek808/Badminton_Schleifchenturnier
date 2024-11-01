@@ -6,7 +6,7 @@
         "jsx": "react-jsx",
         "skipLibCheck": true
     },
-    "references": [],
+    "references": [{"path": "../api-client/tsconfig.sources.json"}],
     "include": ["./**/*.ts", "./**/*.tsx"],
     "exclude": ["./**/*.test.ts", "./**/*.test.tsx"]
 }

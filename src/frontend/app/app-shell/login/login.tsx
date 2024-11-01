@@ -1,20 +1,23 @@
 import { Fragment, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { useSession } from '../../shared/session-context/session-context.js'
+import type { Session } from '../../../api-client/session/session.js'
+import { useNavigate } from '@tanstack/react-router'
+import type { ApiClient } from '../../../api-client/api-client.js'
 
 type LoginProps = {
     as?: React.ElementType
+    session: Session | null
+    apiClient: ApiClient
 }
 
 export function Login(props: LoginProps) {
-    const { as: LoginElement = Button } = props
-    const { role } = useSession()
+    const { as: LoginElement = Button, session, apiClient } = props
 
     const [showModal, setShowModal] = useState(false)
     const handleShow = () => setShowModal(true)
     const handleClose = () => setShowModal(false)
 
-    // const router = useRouter()
+    const navigate = useNavigate()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -24,31 +27,22 @@ export function Login(props: LoginProps) {
         event.stopPropagation()
 
         try {
-            await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-                cache: 'no-cache',
-            })
+            await apiClient.session.login(username, password)
         } catch {}
 
         handleClose()
-        // router.refresh()
+        navigate({ to: '/' })
     }
 
     const handleLogout = async () => {
         try {
-            await fetch('/api/logout', {
-                cache: 'no-cache',
-            })
+            await apiClient.session.logout()
         } catch {}
 
-        // router.refresh()
+        navigate({ to: '/' })
     }
 
-    return role === 'admin' ? (
+    return session?.role === 'admin' ? (
         <LoginElement variant="link" onClick={handleLogout}>
             Logout
         </LoginElement>

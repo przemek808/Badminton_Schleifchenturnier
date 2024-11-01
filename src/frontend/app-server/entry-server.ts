@@ -3,6 +3,7 @@ import { Hono } from 'hono'
 import { serveStatic } from '@hono/node-server/serve-static'
 import path from 'path'
 import { createAdaptorServer } from '@hono/node-server'
+import { createApi } from './create-api.js'
 
 async function createServer() {
     const clientBundle = await readFile(
@@ -10,6 +11,7 @@ async function createServer() {
     ).then((value) => value.toString())
 
     const app = new Hono()
+    createApi(app)
 
     app.use(
         `/__static/${clientBundle}`,
@@ -25,13 +27,6 @@ async function createServer() {
         }),
     )
 
-    app.use(
-        '/__static/bundle.js',
-        serveStatic({
-            path: 'target/build/bootstrap/react-bootstrap.min.js',
-        }),
-    )
-
     app.get('*', (context) => {
         console.log('Server got request', { url: context.req.url })
         return context.html(`<!doctype html>
@@ -41,7 +36,6 @@ async function createServer() {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <title>Badminton Schleifchenturnier</title>
                     <link rel="stylesheet" href="/__static/bundle.css"/>
-                    <script type="module" src="/__static/bundle.js"></script>
                 </head>
                 <body>
                     <div id="app"></div>

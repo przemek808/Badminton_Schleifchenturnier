@@ -1,17 +1,16 @@
 import type { PropsWithChildren, ReactElement } from 'react'
-import { useSession } from '../../shared/session-context/session-context.js'
+import type { Session } from '../../../api-client/session/session.js'
 
 type PageWrapperProps = PropsWithChildren & {
     adminOnly: boolean
+    session: Session | null
 }
 
 export function PageWrapper(props: PageWrapperProps): ReactElement {
-    const { adminOnly, children } = props
-
-    const { role } = useSession()
+    const { adminOnly, children, session } = props
 
     const showPage =
-        adminOnly === false || (adminOnly === true && role === 'admin')
+        adminOnly === false || (adminOnly === true && session?.role === 'admin')
 
     return (
         <main className="px-3">

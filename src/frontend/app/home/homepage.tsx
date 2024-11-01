@@ -1,8 +1,11 @@
+import { useRouteContext } from '@tanstack/react-router'
 import { PageWrapper } from '../common/page-wrapper/page-wrapper.js'
 
 export function Homepage() {
+    const { session } = useRouteContext({ from: '/' })
+
     return (
-        <PageWrapper adminOnly={false}>
+        <PageWrapper adminOnly={false} session={session}>
             <h1>Badminton Schleifchenturnier</h1>
             <h2>Aktuelle Spiele</h2>
             {/* <div>Aktive Runde: {currentRoundNumber}</div>
