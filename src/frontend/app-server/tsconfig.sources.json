@@ -1,0 +1,12 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "../../../target/buildcache/frontend/app-server-sources.tsbuildinfo",
+        "lib": ["ES2023"],
+        "types": ["node"],
+        "skipLibCheck": true
+    },
+    "references": [{ "path": "../app/tsconfig.sources.json" }],
+    "include": ["./**/*.ts"],
+    "exclude": ["./**/*.test.ts"]
+}
