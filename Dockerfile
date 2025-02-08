@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy node requirements
 COPY package.json ./
+COPY json-server ./json-server
 COPY node_modules ./node_modules
 
 # Copy app server files
